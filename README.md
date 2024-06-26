@@ -24,13 +24,13 @@ To use the data and auth providers in your project, import them and pass them to
 ```sh
 import React from "react";
 import { Refine } from "@refinedev/core";
-import { authProvider, dataProvider } from "refine-firebase-providers";
+import { authprovider, dataprovider } from "refine-firebase-providers";
 
 const App = () => {
     return (
         <Refine
-            dataProvider={dataProvider}
-            authProvider={authProvider}
+            dataProvider={dataprovider}
+            authProvider={authprovider}
         />
     );
 };
