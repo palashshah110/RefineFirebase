@@ -1,0 +1,29 @@
+{
+    "name": "refine-firebase-providers",
+    "version": "1.0.0",
+    "description": "A custom data and auth provider using Firebase.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "build": "tsc"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/palashshah110/refine-firebase-providers.git"
+    },
+    "keywords": [
+      "firebase",
+      "auth",
+      "data-provider"
+    ],
+    "author": "Palash Shah",
+    "license": "MIT",
+    "dependencies": {
+      "@refinedev/core": "^4.51.0",
+      "firebase": "^10.12.2"
+    },
+    "devDependencies": {
+      "typescript": "^5.4.2"
+    }
+  }
+  
