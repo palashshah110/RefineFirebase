@@ -15,12 +15,12 @@ A custom data and auth provider using Firebase for Refine.
 To install the package, run:
 
 ```sh
-npm install refine-firebase-providers
+npm install refine-firebase-adapter
 ```
 ## Configuration
 Initialize Firebase in your application's entry point (e.g., index.js or App.js):
 ```sh
-import { initializeFirebase } from 'refine-firebase-providers';
+import { initializeFirebase } from 'refine-firebase-adapter';
 
 // Define your Firebase configuration
 const firebaseConfig = {
@@ -44,7 +44,7 @@ To use the data and auth providers in your project, import them and pass them to
 ```sh
 import React from "react";
 import { Refine } from "@refinedev/core";
-import { authprovider, dataprovider } from "refine-firebase-providers";
+import { authprovider, dataprovider } from "refine-firebase-adapter";
 
 const App = () => {
     return (
@@ -65,4 +65,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 
-This `README.md` will help users understand how to install, configure, and use your package effectively. Make sure to replace `refine-firebase-providers` with the actual package name you decide to use.
+This `README.md` will help users understand how to install, configure, and use your package effectively. Make sure to replace `refine-firebase-adapter` with the actual package name you decide to use.
