@@ -1,4 +1,4 @@
-# refine-firebase-providers
+# refine-firebase-adapter
 
 A custom data and auth provider using Firebase for Refine.
 
