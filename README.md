@@ -17,7 +17,27 @@ To install the package, run:
 ```sh
 npm install refine-firebase-providers
 ```
+## Configuration
+Initialize Firebase in your application's entry point (e.g., index.js or App.js):
+```sh
+import { initializeFirebase } from 'refine-firebase-providers';
 
+// Define your Firebase configuration
+const firebaseConfig = {
+    apiKey: 'YOUR_API_KEY',
+    authDomain: 'YOUR_AUTH_DOMAIN',
+    projectId: 'YOUR_PROJECT_ID',
+    storageBucket: 'YOUR_STORAGE_BUCKET',
+    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
+    appId: 'YOUR_APP_ID'
+};
+
+// Initialize Firebase
+const { auth, db } = initializeFirebase(firebaseConfig);
+
+// Now you can use `auth` and `db` in your application
+console.log(auth, db);
+```
 ## Usage
 To use the data and auth providers in your project, import them and pass them to the Refine component:
 
@@ -36,43 +56,6 @@ const App = () => {
 };
 
 export default App;
-```
-
-## Configuration
-To configure Firebase, you need to set your Firebase configuration in environment variables. Create a .env file in the root of your project and add your Firebase configuration:
-
-```sh
-REACT_APP_FIREBASE_API_KEY=your-api-key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
-REACT_APP_FIREBASE_APP_ID=your-app-id
-```
-Make sure to load these environment variables in your firebaseconfig.ts file:
-
-```sh
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-
-const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Authentication and Firestore
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-export { auth, db };
 ```
 
 ## Contributing

@@ -1,6 +1,6 @@
 {
     "name": "refine-firebase-providers",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "A custom data and auth provider using Firebase.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
