@@ -128,6 +128,8 @@ export class FirebaseAuth {
             throw error;
         }
     }
+    
+
 
     public async handleCheckAuth(): Promise<CheckResponse> {
         try {
@@ -146,6 +148,26 @@ export class FirebaseAuth {
         }
     }
 
+    public async handleForgotPassword(email: string): Promise<AuthActionResponse> {
+        try {
+            await sendPasswordResetEmail(this.auth, email);
+            return { success: true };
+        } catch (error: any) {
+            return { success: false, error: { name: "Forgot Password Error", message: error.message } };
+        }
+    }
+    public async handleUpdatePassword(newPassword: string): Promise<AuthActionResponse> {
+        try {
+            if (this.auth?.currentUser) {
+                await updatePassword(this.auth.currentUser, newPassword);
+                return { success: true };
+            } else {
+                throw new Error("No user is currently authenticated");
+            }
+        } catch (error: any) {
+            return { success: false, error: { name: "Update Password Error", message: error.message } };
+        }
+    }
     public async getPermissions(): Promise<ParsedToken> {
         try {
             const user = this.auth.currentUser;
@@ -178,12 +200,14 @@ export class FirebaseAuth {
             login: this.handleLogIn.bind(this),
             logout: this.handleLogOut.bind(this),
             check: this.handleCheckAuth.bind(this),
-            register: this.handleRegister.bind(this),
             onError: async() => { return {
                 redirectTo: "/",
                 logout: false,
                 error: { name: "Error", message: "An error occurred", stack: "Error stack" }
             }},
+            register: this.handleRegister.bind(this),
+            forgotPassword:this.handleForgotPassword.bind(this),
+            updatePassword:this.handleUpdatePassword.bind(this),
             getPermissions: this.getPermissions.bind(this),
             getIdentity: this.getUserIdentity.bind(this)
         };
