@@ -1,9 +1,9 @@
 import { AuthProvider } from "@refinedev/core";
-import { FirebaseAuth } from "./firebaseauth";
+import { FirebaseAuth } from "./FirebaseAuth";
 
 const firebaseAuth = new FirebaseAuth();
 
-const authprovider: AuthProvider = {
+const authProvider: AuthProvider = {
   login: async ({ email, password }) => {
     try {
       await firebaseAuth.handleLogIn({ email, password, remember: true });
@@ -22,16 +22,20 @@ const authprovider: AuthProvider = {
   },
   register: async ({ email, password, displayName }) => {
     try {
-      const userCredential = await firebaseAuth.handleRegister({ email, password, displayName });
+      const userCredential = await firebaseAuth.handleRegister({
+        email,
+        password,
+        displayName,
+      });
 
       if (userCredential.user) {
         firebaseAuth.sendEmailVerification(userCredential.user);
-        firebaseAuth.updateProfile(userCredential.user, { displayName }); 
-        firebaseAuth.onRegister(userCredential.user); 
+        firebaseAuth.updateProfile(userCredential.user, { displayName });
+        firebaseAuth.onRegister(userCredential.user);
 
         return { success: true };
       } else {
-        throw new Error('User credential not found after registration.');
+        throw new Error("User credential not found after registration.");
       }
     } catch (error: any) {
       return {
@@ -60,17 +64,49 @@ const authprovider: AuthProvider = {
     } catch (error: any) {
       return {
         success: false,
-        redirectTo:'/',
+        redirectTo: "/",
         error: { name: "Logout Error", message: error.message },
+      };
+    }
+  },
+  forgotPassword: async ({ email }) => {
+    try {
+      const response: any = await firebaseAuth.handleForgotPassword(email);
+      if (response.success) {
+        return { success: true };
+      } else {
+        throw new Error(response.error.message);
+      }
+    } catch (error: any) {
+      return {
+        success: false,
+        error: { name: "Forgot Password Error", message: error.message },
+      };
+    }
+  },
+  updatePassword: async ({ newPassword }) => {
+    try {
+      const response: any = await firebaseAuth.handleUpdatePassword(
+        newPassword
+      );
+      if (response.success) {
+        return { success: true };
+      } else {
+        throw new Error(response.error.message);
+      }
+    } catch (error: any) {
+      return {
+        success: false,
+        error: { name: "Update Password Error", message: error.message },
       };
     }
   },
   getIdentity: async () => {
     try {
       const user = await firebaseAuth.getUserIdentity();
-      return { email: user.email }; // Return the email as identity
+      return { email: user.email }; 
     } catch (error) {
-      return { email: null }; // Return null if user not found
+      return { email: null }; 
     }
   },
   onError: async () => {
@@ -82,5 +118,4 @@ const authprovider: AuthProvider = {
   },
 };
 
-
-export default authprovider;
+export default authProvider;
